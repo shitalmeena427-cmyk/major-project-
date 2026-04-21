@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Test</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+    <script src="js/script.js" defer></script>
+</head>
+<body>
+    <h1>Theme Test Page</h1>
+    <button id="theme-toggle" class="theme-toggle">🌙</button>
+    <p>Click the button above to toggle theme</p>
+    <div style="background: var(--bg); color: var(--text); padding: 20px; margin: 20px; border: 1px solid var(--border);">
+        This div should change color when theme toggles
+    </div>
+</body>
+</html></content>
+<parameter name="filePath">c:\xampp\htdocs\major project 2026\theme_test.html

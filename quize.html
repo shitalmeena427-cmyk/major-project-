@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Quiz</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #F9F9F9;
+            text-align: center;
+        }
+
+        .quiz-box {
+            width: 20%;
+            margin: auto;
+            background: #A3D8F4;
+            padding: 20px;
+            border-radius: 20px;
+            margin-top: 30px;
+           
+        }
+
+        .question {
+            font-size: 18px;
+            margin-top: 15px;
+            color: #002E6E;
+        }
+
+        .options label {
+            display: block;
+            margin: 8px;
+            padding: 8px;
+            background: #C8E6C9;
+            border-radius: 15px;
+            cursor: pointer;
+           
+        }
+
+        #timer {
+            color: #9C1C21;
+            font-size:  18px;
+        }
+
+          button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #667eea;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #5a67d8;
+        }
+
+        .correct {
+            color: green;
+        }
+
+        .wrong {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="quiz-box" id="quizPage">
+    <div id="timer">Time: 6</div>
+
+    <form id="quizForm">
+
+        <!-- Question 1 -->
+        <div class="question">Q1. Capital of India?</div>
+        <div class="options">
+            <label><input type="radio" name="q1" value="Mumbai"> Mumbai</label>
+            <label><input type="radio" name="q1" value="Delhi"> Delhi</label>
+            <label><input type="radio" name="q1" value="Kolkata"> Kolkata</label>
+            <label><input type="radio" name="q1" value="jaipur">jaipur </label>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question">Q2. 2 + 2 = ?</div>
+        <div class="options">
+            <label><input type="radio" name="q2" value="3"> 3</label>
+            <label><input type="radio" name="q2" value="4"> 4</label>
+            <label><input type="radio" name="q2" value="5"> 5</label>
+            <label><input type="radio" name="q2" value="6"> 6 </label>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question">Q3. HTML stands for?</div>
+        <div class="options">
+            <label><input type="radio" name="q3" value="wrong"> High Text Machine Language</label>
+            <label><input type="radio" name="q3" value="correct"> Hyper Text Markup Language</label>
+            <label><input type="radio" name="q3" value="wrong"> Home Tool Markup Language</label>
+            <label><input type="radio" name="q4" value="wrong"> high text markuup Language </label>
+        </div>
+        <!--Queastion 4 -->
+        <div class="question">Q4. capital of rajasthan? </div>
+        <div class="options">
+            <label><input type="radio" name="q4" value="kota"> kota </label>
+            <label><input type="radio" name="q4" value="jaipur">jaipur</label>
+            <label><input type="radio" name="q4" value="udaipur"> udaipur </label>
+            <label><input type="radio" name="q4" value="jhodpur"> jhodpur</label>
+        </div>
+
+        <button type="button" onclick="submitQuiz()">Submit</button>
+    </form>
+</div>
+
+<!-- RESULT PAGE -->
+<div class="quiz-box" id="resultPage" style="display:none;">
+    <h2>Result</h2>
+    <p id="score"></p>
+    <div id="analysis"></div>
+</div>
+
+<script>
+    let time = 60;
+    let timer = setInterval(() => {
+        time--;
+        document.getElementById("timer").innerText = "Time: " + time;
+
+        if (time <= 0) {
+            clearInterval(timer);
+            submitQuiz();
+        }
+    }, 1000);
+
+    function submitQuiz() {
+        clearInterval(timer);
+
+        let answers = {
+            q1: "Delhi",
+            q2: "4",
+            q3: "correct",
+            q4: "jaipur"
+        };
+
+        let score = 0;
+        let analysisHTML = "";
+
+        for (let key in answers) {
+            let selected = document.querySelector(`input[name="${key}"]:checked`);
+
+            if (selected) {
+                if (selected.value === answers[key]) {
+                    score++;
+                    analysisHTML += `<p class="correct">${key} ✔ Correct</p>`;
+                } else {
+                    analysisHTML += `<p class="wrong">${key} ❌ Wrong</p>`;
+                }
+            } else {
+                analysisHTML += `<p class="wrong">${key} ❌ Not Attempted</p>`;
+            }
+        }
+
+        // Show result
+        document.getElementById("quizPage").style.display = "none";
+        document.getElementById("resultPage").style.display = "block";
+
+        document.getElementById("score").innerText = "Score: " + score + "/4";
+        document.getElementById("analysis").innerHTML = analysisHTML;
+    }
+</script>
+
+</body>
+</html>
